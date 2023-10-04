@@ -26,6 +26,7 @@ Stack::Stack()
 	Capacity = 4;
 }
 
+//DO NOT USE THIS, THIS IS FOR STATIC STACK 
 Stack::Stack(int cap)
 {
 	arr = new int[cap];
@@ -38,14 +39,21 @@ void Stack::PushElement(int Element)
 {
 	if (nextIndex == Capacity)
 	{
-		std::cout << "You have run out of space within your array" << "\n";
-		return;
+		std::cout << "Old Stack is too small, updating size....\n";
+		int* newArr = new int[2 * Capacity];
+		for (int i = 0; i < Capacity; i++)
+		{
+			newArr[i] = arr[i];
+		}
+
+		delete[]arr;
+		arr = newArr;
+		Capacity = Capacity * 2;
 	}
-	else
-	{
 		arr[nextIndex] = Element;
 		nextIndex++;
-	}
+		std::cout << "Added " << Element << " To the stack!\n";
+
 
 }
 
@@ -106,7 +114,7 @@ Stack::~Stack()
 
 int main()
 {
-	Stack s(5);
+	Stack s;
 
 	s.PushElement(10);
 	s.PushElement(20);
