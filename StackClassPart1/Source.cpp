@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include "Pair.h"
 
 class Stack
 {
@@ -134,6 +135,13 @@ int main()
 	s.PopElement();
 
 	std::cout << s.TopOfStack() << "\n";
+
+	Pair<int, double> p1;
+
+	p1.SetX(10.1);
+	p1.SetY(22.2);
+
+	std::cout << p1.GetX() << " " << p1.GetY() << "\n";
 
 	return 0;
 }
