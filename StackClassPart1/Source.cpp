@@ -2,6 +2,7 @@
 #include <stack>
 #include "Pair.h"
 
+template<typename T>
 class Stack
 {
 public:
@@ -10,38 +11,41 @@ public:
 	~Stack();
 	int SizeofStack();
 	bool IsStackEmpy();
-	void PushElement(int Element);
+	void PushElement(T Element);
 	void PopElement();
 	int TopOfStack();
 
 private:
-	int* arr;
+	T* arr;
 	int nextIndex;
 	int Capacity;
 };
 
-Stack::Stack()
+template<typename T>
+inline Stack<T>::Stack()
 {
-	arr = new int[4];
+	arr = new T[4];
 	nextIndex = 0;
 	Capacity = 4;
 }
 
 //DO NOT USE THIS, THIS IS FOR STATIC STACK 
-Stack::Stack(int cap)
+template<typename T>
+inline Stack<T>::Stack(int cap)
 {
-	arr = new int[cap];
+	arr = new T[cap];
 	nextIndex = 0;
 	Capacity = cap;
 
 }
 
-void Stack::PushElement(int Element)
+template<typename T>
+inline void Stack<T>::PushElement(T Element)
 {
 	if (nextIndex == Capacity)
 	{
 		std::cout << "Old Stack is too small, updating size....\n";
-		int* newArr = new int[2 * Capacity];
+		T* newArr = new T[2 * Capacity];
 		for (int i = 0; i < Capacity; i++)
 		{
 			newArr[i] = arr[i];
@@ -58,7 +62,8 @@ void Stack::PushElement(int Element)
 
 }
 
-void Stack::PopElement()
+template<typename T>
+inline void Stack<T>::PopElement()
 {
 	if (nextIndex == 0)
 	{
@@ -71,12 +76,14 @@ void Stack::PopElement()
 	}
 }
 
-int Stack::SizeofStack()
+template<typename T>
+inline int Stack<T>::SizeofStack()
 {
 	return nextIndex;
 }
 
-int Stack::TopOfStack()
+template<typename T>
+inline int Stack<T>::TopOfStack()
 {
 	if (IsStackEmpy())
 	{
@@ -86,7 +93,8 @@ int Stack::TopOfStack()
 	return arr[nextIndex - 1];
 }
 
-bool Stack::IsStackEmpy()
+template<typename T>
+inline bool Stack<T>::IsStackEmpy()
 {
 	/*
 	if (nextIndex == 0)
@@ -107,22 +115,34 @@ bool Stack::IsStackEmpy()
 
 }
 
-Stack::~Stack()
+template<typename T>
+inline Stack<T>::~Stack()
 {
+
 }
 
 
 
 int main()
 {
-	Stack s;
+	//Stack<int> s;
 
-	s.PushElement(10);
-	s.PushElement(20);
-	s.PushElement(30);
-	s.PushElement(40);
-	s.PushElement(50);
-	s.PushElement(60);
+	//s.PushElement(10);
+	//s.PushElement(20);
+	//s.PushElement(30);
+	//s.PushElement(40);
+	//s.PushElement(50);
+	//s.PushElement(60);
+
+	Stack<char> s;
+
+	s.PushElement('a');
+	s.PushElement('b');
+	s.PushElement('c');
+	s.PushElement('d');
+	s.PushElement('e');
+	s.PushElement('f');
+	s.PushElement('g');
 
 	std::cout << s.TopOfStack() << "\n";
 
@@ -139,9 +159,25 @@ int main()
 	Pair<int, double> p1;
 
 	p1.SetX(10.1);
-	p1.SetY(22.2);
+	p1.SetY(22.22);
 
 	std::cout << p1.GetX() << " " << p1.GetY() << "\n";
+
+
+	Pair<Pair<int, int>, char> P2;
+
+	P2.SetY('a');
+
+	Pair<int, int> P3;
+
+	P3.SetX(20);
+
+	P3.SetY(30);
+
+	P2.SetX(P3);
+	
+	std::cout << P2.GetY() << P2.GetX().GetX() << P2.GetX().GetY() << "\n";
+
 
 	return 0;
 }
