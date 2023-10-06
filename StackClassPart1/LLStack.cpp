@@ -46,7 +46,7 @@ int LLStack::Top()
 	if (IsEmpty())
 	{
 		std::cout << "Your Stack is Empty\n";
-		return;
+		return 0;
 	}
 
 	return head->data;

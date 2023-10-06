@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include "Pair.h"
+#include <string>
 
 template<typename T>
 class Stack
@@ -177,6 +178,41 @@ int main()
 	P2.SetX(P3);
 	
 	std::cout << P2.GetY() << P2.GetX().GetX() << P2.GetX().GetY() << "\n";
+
+	std::string StackInput{ "{{()}}" };
+
+	std::stack<char> MatchingParaStack;
+
+	bool IsStringMatching = true;
+
+	for (size_t i = 0; i < StackInput.size(); i++)
+	{
+		if (StackInput.at(i) == '{' || StackInput.at(i) == '[' || StackInput.at(i) == '(')
+		{
+			MatchingParaStack.push(StackInput.at(i));
+		}
+		else
+		{
+			if (MatchingParaStack.top() == '[' && StackInput.at(i) == ']')
+			{
+				MatchingParaStack.pop();
+			}
+			else if (MatchingParaStack.top() == '{' && StackInput.at(i) == '}')
+			{
+				MatchingParaStack.pop();
+			}
+			else if (MatchingParaStack.top() == '(' && StackInput.at(i) == ')')
+			{
+				MatchingParaStack.pop();
+			}
+			else
+			{
+				IsStringMatching = false;
+			}
+		}		
+	}
+
+	std::cout << "The result of the Stack and String test is: " << IsStringMatching << "\n";
 
 
 	return 0;
