@@ -247,11 +247,11 @@ int main()
 			}
 			else if (Tokens[i] == "*")
 			{
-				ThirdVar = FirstVar * SecondVar;
+				ThirdVar = SecondVar * FirstVar;
 			}
 			else if (Tokens[i] == "/")
 			{
-				ThirdVar = FirstVar / SecondVar;
+				ThirdVar = SecondVar / FirstVar;
 			} 
 			ReversePolishStack.push(ThirdVar);
 		}
@@ -264,6 +264,46 @@ int main()
 	Answer = ReversePolishStack.top();
 
 	std::cout << "The Answer to the equation is: " << Answer << "\n";
+
+
+	std::string Duplicates = "abbaca";
+
+	std::string DuplicatesAnswer;
+
+	std::stack<char> EliminateDuplicates;
+
+	for (size_t i = 0; i < Duplicates.size(); i++)
+	{
+
+		if (EliminateDuplicates.empty())
+		{
+			EliminateDuplicates.push(Duplicates[i]);
+		}
+		else
+		{
+			if (EliminateDuplicates.top() == Duplicates[i])
+			{
+				EliminateDuplicates.pop();
+			}
+			else
+			{
+				EliminateDuplicates.push(Duplicates[i]);
+			}
+		}		
+	}
+
+	while (!EliminateDuplicates.empty())
+	{
+		DuplicatesAnswer.push_back(EliminateDuplicates.top());
+		EliminateDuplicates.pop();
+	}
+
+	reverse(DuplicatesAnswer.begin(), DuplicatesAnswer.end());
+
+	std::cout << "After elminating duplicates, the stack contains: " << DuplicatesAnswer << "\n";
+
+
+
 
 	return 0;
 }
