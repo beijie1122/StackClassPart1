@@ -300,9 +300,14 @@ int main()
 
 	reverse(DuplicatesAnswer.begin(), DuplicatesAnswer.end());
 
-	std::cout << "After elminating duplicates, the stack contains: " << DuplicatesAnswer << "\n";
-
-
+	if (DuplicatesAnswer.size() == 0)
+	{
+		std::cout << "EMPTY STRING" << "\n";
+	}
+	else
+	{
+		std::cout << "After elminating duplicates, the stack contains: " << DuplicatesAnswer << "\n";
+	}
 
 
 	return 0;
