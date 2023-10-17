@@ -2,6 +2,7 @@
 #include <stack>
 #include "Pair.h"
 #include <string>
+#include <vector>
 
 template<typename T>
 class Stack
@@ -176,10 +177,10 @@ int main()
 	P3.SetY(30);
 
 	P2.SetX(P3);
-	
+
 	std::cout << P2.GetY() << P2.GetX().GetX() << P2.GetX().GetY() << "\n";
 
-	std::string StackInput{ "{{()}}" };
+	std::string StackInput{ "{[]}" };
 
 	std::stack<char> MatchingParaStack;
 
@@ -190,6 +191,11 @@ int main()
 		if (StackInput.at(i) == '{' || StackInput.at(i) == '[' || StackInput.at(i) == '(')
 		{
 			MatchingParaStack.push(StackInput.at(i));
+		}
+		else if (StackInput.empty())
+		{
+			std::cout << "Unable to perform the test, not enough variables to measure!\n";
+			IsStringMatching = false;
 		}
 		else
 		{
@@ -209,11 +215,55 @@ int main()
 			{
 				IsStringMatching = false;
 			}
-		}		
+		}
 	}
 
 	std::cout << "The result of the Stack and String test is: " << IsStringMatching << "\n";
 
+	int ThirdVar;
+
+	int Answer;
+
+	std::stack<int> ReversePolishStack;
+
+	std::vector<std::string> Tokens = {"4", "13", "5", "/", "+"};
+
+	for (size_t i = 0; i < Tokens.size(); i++)
+	{
+		if (Tokens[i] == "+" || Tokens[i] == "-" || Tokens[i] == "*" || Tokens[i] == "/")
+		{
+			int FirstVar = ReversePolishStack.top();
+			ReversePolishStack.pop();
+			int SecondVar = ReversePolishStack.top();
+			ReversePolishStack.pop();
+
+			if (Tokens[i] == "+")
+			{
+				ThirdVar = FirstVar + SecondVar;			
+			}
+			else if (Tokens[i] == "-")
+			{
+				ThirdVar = FirstVar - SecondVar;
+			}
+			else if (Tokens[i] == "*")
+			{
+				ThirdVar = FirstVar * SecondVar;
+			}
+			else if (Tokens[i] == "/")
+			{
+				ThirdVar = FirstVar / SecondVar;
+			} 
+			ReversePolishStack.push(ThirdVar);
+		}
+		else
+		{
+			ReversePolishStack.push(atoi(Tokens[i].c_str()));
+		}
+	}
+
+	Answer = ReversePolishStack.top();
+
+	std::cout << "The Answer to the equation is: " << Answer << "\n";
 
 	return 0;
 }
